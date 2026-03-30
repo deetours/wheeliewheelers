@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #050505; /* True Black / Void */
+  --color-foreground: #F1F1F1; /* Chalk */
+  --color-primary: #050505;
+  --color-primary-foreground: #F1F1F1;
+  --color-secondary: #1A1A1A; /* Asphalt */
+  --color-secondary-foreground: #F1F1F1;
+  --color-accent: #E63946; /* Blood / Tail-light */
+  --color-accent-foreground: #FFFFFF;
+  --color-muted: #1A1A1A;
+  --color-muted-foreground: #888888; /* Dust */
+  --color-border: #1A1A1A;
+  --color-surface: #050505;
+  --color-surface-alt: #1A1A1A;
+  
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-accent: var(--font-accent);
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scrolling */
+    cursor: none; /* Custom cursor implementation */
+  }
+  
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply font-sans font-light;
+  }
+
+  /* Cinematic Typography System */
+  h1, .font-display {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+  }
+
+  h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+    font-style: italic;
+  }
+
+  p {
+    @apply text-lg leading-relaxed text-muted-foreground;
+  }
+
+  a, button {
+    cursor: none; /* Custom cursor */
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+}
+
+@layer utilities {
+  /* Cinematic Layout Primitives */
+  .void-gap {
+    @apply py-48 md:py-64; /* Massive 60vh equivalent gaps */
+  }
+
+  .section-pad {
+    @apply py-32 px-4 md:px-8; /* 128px padding */
+  }
+
+  .container-tight {
+    @apply max-w-[600px] mx-auto; /* Brutalist narrow text columns */
+  }
+  
+  .container-wide {
+    @apply max-w-[1400px] mx-auto;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Motion Utilities */
+  .magnetic-button {
+    @apply relative inline-flex items-center justify-center px-8 py-4 bg-transparent border border-foreground text-foreground uppercase tracking-widest text-[0.875rem] font-bold transition-colors duration-0 overflow-hidden;
+  }
+  .magnetic-button:hover {
+    @apply bg-accent border-accent text-background;
+  }
+}
+
+/* Custom Cursor Base */
+.custom-cursor {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.2s, height 0.2s;
+}
+
+.custom-cursor.hover {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-foreground);
+}
+
+/* Scrollbar elimination for immersive view */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
