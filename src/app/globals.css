@@ -23,7 +23,15 @@
 @layer base {
   html {
     scroll-behavior: auto; /* Lenis handles smooth scrolling */
-    cursor: none; /* Custom cursor implementation */
+  }
+
+  @media (pointer: fine) {
+    html {
+      cursor: none; /* Custom cursor implementation only for mouse */
+    }
+    a, button {
+      cursor: none;
+    }
   }
   
   body {
@@ -54,9 +62,7 @@
     @apply text-lg leading-relaxed text-muted-foreground;
   }
 
-  a, button {
-    cursor: none; /* Custom cursor */
-  }
+
 
   ::selection {
     background-color: var(--color-accent);
@@ -99,26 +105,34 @@
   }
 }
 
-/* Custom Cursor Base */
-.custom-cursor {
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-accent);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  transition: width 0.2s, height 0.2s;
+/* Custom Cursor Base - Restricted to Desktop */
+@media (pointer: fine) {
+  .custom-cursor {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    transition: width 0.2s, height 0.2s;
+  }
+
+  .custom-cursor.hover {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-foreground);
+  }
 }
 
-.custom-cursor.hover {
-  width: 48px;
-  height: 48px;
-  background-color: var(--color-foreground);
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
 }
 
 /* Scrollbar elimination for immersive view */
